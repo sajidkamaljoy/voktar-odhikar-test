@@ -31,7 +31,7 @@ Requirements: Node.js 18+, PostgreSQL and Redis.
 ```bash
 cd 3npbackend
 npm install
-# set your PostgreSQL and Redis settings in src/app.module.ts, and the session secret in src/main.ts
+cp .env.example .env   # then fill in DB_USERNAME, DB_PASSWORD, DB_NAME and SESSION_SECRET
 npm run start:dev
 ```
 
@@ -47,6 +47,7 @@ Open `http://localhost:7000`. The backend allows cross-origin requests with cred
 
 ## Notes
 
-- Database credentials and the session secret are currently written in source (`app.module.ts`, `main.ts`). Move them to environment variables (`@nestjs/config` is already installed) before deploying.
+- Database credentials and the session secret are read from environment variables (`3npbackend/.env`, see `.env.example`). The backend refuses to start without `DB_USERNAME`, `DB_PASSWORD`, `DB_NAME` and a `SESSION_SECRET` of at least 32 characters. Generate one with `openssl rand -base64 48`. `.env` is git-ignored.
+- Earlier commits in this repo's history contained hard-coded values. Treat those as public and do not reuse them anywhere.
 - `Puppeteer` downloads a Chromium build on `npm install`, so the first install is large.
 - The old `vo-be` repo was an earlier, source-less copy of the backend. This repo is the complete one.

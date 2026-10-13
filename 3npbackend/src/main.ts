@@ -8,11 +8,16 @@ import {
 import { ValidationPipe } from '@nestjs/common';
 
 async function bootstrap() {
+  const sessionSecret = process.env.SESSION_SECRET;
+  if (!sessionSecret || sessionSecret.length < 32) {
+    throw new Error('SESSION_SECRET is missing or shorter than 32 characters. See .env.example.');
+  }
+
   const app = await NestFactory.create(AppModule);
   
   app.use(
     session({
-      secret: 'my-secret',
+      secret: sessionSecret,
       resave: false,
       saveUninitialized: false,
       cookie:{

@@ -1,4 +1,5 @@
 import { Module } from '@nestjs/common';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AdminModule } from './Users/Admin/admin.module';
 import { DistributorModule } from './Users/Distributor/distributor.module';
@@ -18,17 +19,21 @@ import * as redisStore from 'cache-manager-ioredis';
                   isGlobal: true
                 }),
         AdminModule, DistributorModule, IndustryModule,UserModule, 
-        TypeOrmModule.forRoot(
-        { 
-            type: 'postgres',
-            host: 'localhost',
-            port: 5432,
-            username: 'postgres',
-            password: 'sajid',
-            database: 'Vhoktar Odhikar',//Change to your database name
-            autoLoadEntities: true,
-            synchronize: true,
-        } ),
+        ConfigModule.forRoot({ isGlobal: true }),
+        TypeOrmModule.forRootAsync({
+            inject: [ConfigService],
+            useFactory: (config: ConfigService) => ({
+                type: 'postgres',
+                host: config.get<string>('DB_HOST', 'localhost'),
+                port: config.get<number>('DB_PORT', 5432),
+                username: config.getOrThrow<string>('DB_USERNAME'),
+                password: config.getOrThrow<string>('DB_PASSWORD'),
+                database: config.getOrThrow<string>('DB_NAME'),
+                autoLoadEntities: true,
+                // Auto-creates/alters tables. Fine for local dev, turn off (DB_SYNCHRONIZE=false) elsewhere.
+                synchronize: config.get<string>('DB_SYNCHRONIZE', 'true') === 'true',
+            }),
+        }),
         
     ],
     controllers: [],
