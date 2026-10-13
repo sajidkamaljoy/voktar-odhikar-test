@@ -48,6 +48,5 @@ Open `http://localhost:7000`. The backend allows cross-origin requests with cred
 ## Notes
 
 - Database credentials and the session secret are read from environment variables (`3npbackend/.env`, see `.env.example`). The backend refuses to start without `DB_USERNAME`, `DB_PASSWORD`, `DB_NAME` and a `SESSION_SECRET` of at least 32 characters. Generate one with `openssl rand -base64 48`. `.env` is git-ignored.
-- Earlier commits in this repo's history contained hard-coded values. Treat those as public and do not reuse them anywhere.
 - `Puppeteer` downloads a Chromium build on `npm install`, so the first install is large.
 - The old `vo-be` repo was an earlier, source-less copy of the backend. This repo is the complete one.
