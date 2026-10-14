@@ -1,5 +1,7 @@
 # Voktar Odhikar
 
+> **Note:** this project was originally developed under my earlier GitHub account, [sajid43677/voktar-odhikar-test](https://github.com/sajid43677/voktar-odhikar-test), and was moved to this account in October 2026.
+
 [![CI](https://github.com/sajidkamaljoy/voktar-odhikar-test/actions/workflows/ci.yml/badge.svg)](https://github.com/sajidkamaljoy/voktar-odhikar-test/actions/workflows/ci.yml)
 
 **Voktar Odhikar** (Bengali for "consumer rights") is a web platform that connects food distributors, industries and admins around fair pricing and trust. Distributors list products and prices, industries request quantities, and admins verify participants, red-list bad actors and send notices.
